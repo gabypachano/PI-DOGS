@@ -19,36 +19,12 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const {Dog, Temperament} = require('./src/db.js')
-const mockDogs = require('./src/MOCK_DATA.json')
-const mockTemperaments = require('./src/MOCK_DATA_TEMPERAMENTS.json')
-
-
-const filledDogs = async() =>{
-  mockDogs.map((dog) => Dog.create({
-      name: dog.name,
-      heightMin: dog.heightMin,
-      heightMax: dog.heightMax,
-      weightMin: dog.weightMin,
-      weightMax: dog.weightMax,
-      temperament: dog.temperament,
-      image: dog.image,
-      lifeSpanMin: dog.lifeSpanMin,
-      lifeSpanMax: dog.lifeSpanMax
-  }))
-}
-
-const filledTemperament = async () =>{
-  mockTemperaments.map((dog) => Temperament.create({
-    name: dog.name
-  }))
-}
+const { getAllTemperaments } = require('./src/controllers/getAllTemperaments.js')
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
-    filledDogs()
-    filledTemperament()
+    getAllTemperaments();
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });

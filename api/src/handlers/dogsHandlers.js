@@ -1,3 +1,4 @@
+const {Dog, Temperament} = require('../db')
 const {getAllDogs, getDogsById} = require('../controllers/getAllDogs')
 
 const allDogsHandler = async (req, res) =>{
@@ -37,8 +38,36 @@ const dogsByIdHandler = async (req,res) => {
 }
 
 const createDogsHandler = async (req, res) => {
+    const {name, image, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, temperament} = req.body
+    try {
+            const dogsCreated = await Dog.create({
+            name,
+            image,
+            heightMin,
+            heightMax,
+            weightMin,
+            weightMax,
+            lifeSpanMin,
+            lifeSpanMax
+        }) 
 
-}
+        temperament?.map(async (e) => { 
+            const getTemperament = await Temperament.findOne({where: {name: e}})
+            await dogsCreated.addTemperament(getTemperament)
+            // defaults: {name: temperament}    
+        })
+        
+        res.status(201).send({
+            message: 'El perrito se ha creado correctamente',
+            data: await dogsCreated
+        })
+
+    } catch (error) {
+      res.status(400).send({message: 'Hubo un error al crear el perrito', error: error.message})  
+    }
+  }
+
+
 
 
 module.exports = {
