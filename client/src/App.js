@@ -16,7 +16,7 @@ function App() {
           <Form />
         </Route>     
         <Route path="/">
-          <Landing />
+          <LandingPage />
         </Route>
         </Switch>
     </div>
