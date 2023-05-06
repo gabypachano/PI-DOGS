@@ -7,9 +7,8 @@ import store from './redux/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
+
 ReactDOM.render(
-  // Envuelvo mi archivo App en el Provider para conectar mi app de react con Redux y que me funcione
-  //! BrowserRouter 
   <Provider store={store}>
   <BrowserRouter>
     <App />
