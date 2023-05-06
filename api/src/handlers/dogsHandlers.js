@@ -54,7 +54,6 @@ const createDogsHandler = async (req, res) => {
         temperament?.map(async (e) => { 
             const getTemperament = await Temperament.findOne({where: {name: e}})
             await dogsCreated.addTemperament(getTemperament)
-            // defaults: {name: temperament}    
         })
         
         res.status(201).send({
