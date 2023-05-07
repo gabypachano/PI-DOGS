@@ -25,4 +25,4 @@ const Card = ({image, name, temperament, weightMin, weightMax}) => {
 
 }
 
-export default Card
+export default Card;

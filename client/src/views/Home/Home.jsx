@@ -1,35 +1,25 @@
-import React from "react";
-import axios from 'axios'
-import { useState,useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllDogs } from "../../redux/actions";
-import {Link} from 'react-router-dom'
-import Card from "../../components/Card/Card";
+import React, {useEffect, useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllDogs } from '../../redux/actions'
 
-export default function Home() {
+const Home = () => {
+    // Para ir enviando mis acciones a redux y actualizar el estado global de la aplicación.
+    const dispatch = useDispatch()
+    // Aca estoy guardando todo lo que esta en el estado allDogs
+    const dogs = useSelector((state) => state.allDogs)
 
-    // Para ir despachando mis acciones:
-    const dispatch = useDispatch();
-
-    //Esto es similar a usar mapStateToProps... Uso useSelector para traerme todo lo que está en el estado de allDogs
-    const allDogs = useSelector(state => state.allDogs)
-
-    // Me traigo del estado los perritos cuando el componente se monta
     useEffect (() => {
-        dispatch(getAllDogs());
+        dispatch(getAllDogs())
     }, [])
 
-    // function handleClick(event) {
-    //     event.preventDefault
-    //     dispatch(getAllDogs());
-    // }
+   
 
-    return(
+    return (
         <div>
-            <Link to= '/dogs'>Hola</Link>
-            <h1>ESTAMOS EN EL HOME</h1>
-            <button>Cargar todos los personajes</button>
-            {/* <Card  name={singleDog.name}  weightMin={singleDog.weightMin} weightMax={singleDog.weightMax} /> */}
+            <h1>ESTAMOS EN HOME</h1>
         </div>
     )
+
 }
+
+export default Home;
