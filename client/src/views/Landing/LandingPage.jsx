@@ -9,7 +9,7 @@ const LandingPage = () => {
     return(
         <div>
             <h1>Bienvenidos a mi App de Perritos</h1>
-            <Link to ='/home'>
+            <Link to='/home'>
                 <button>Ir a Home</button>
             </Link>
         </div>
