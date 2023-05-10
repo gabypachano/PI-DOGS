@@ -4,9 +4,7 @@ const { allDogsHandler, dogsByIdHandler, createDogsHandler } = require('../handl
 
 
 router.get('/', allDogsHandler);
-
 router.get('/:id', dogsByIdHandler);
-
 router.post('/', createDogsHandler);
 
 

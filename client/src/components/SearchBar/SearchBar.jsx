@@ -1,21 +1,18 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getDogsByName } from "../../redux/actions";
+import { useHistory } from "react-router-dom"
 
 const SearchBar = () => {
-    const dispatch = useDispatch()
+    const history = useHistory()
     const [name, setName] = useState("")
-
-    const handleInputChange = (event) => {
-        event.preventDefault()
-        setName(event.target.value)
-        console.log(name)
+    const handleInputChange = (e) => {
+        e.preventDefault()
+        setName(e.target.value)
     }
-
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        dispatch(getDogsByName(name))
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        history.push(`/detail/${name}`)
+        setName('')
     }
 
     return(
@@ -24,9 +21,9 @@ const SearchBar = () => {
             type = 'text'
             placeholder = "Buscar..."
             value={name}
-            onChange={(event) =>handleInputChange(event)}
+            onChange={(e) =>handleInputChange(e)}
             />
-            <button type='submit' onClick={(event) => handleSubmit(event)}>Buscar 🔎</button>
+            <button type='submit' onClick={(e) => handleSubmit(e)}>Buscar 🔎</button>
         </div>
     )
 }

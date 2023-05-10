@@ -2,11 +2,16 @@ const axios = require("axios");
 const {API_KEY} = process.env
 const {Dog, Temperament} = require("../db")
 
+// Funcion para organizar la informacion que viene de la DB parecida a la que viene de la API
 const createDogObjDB = (res) => {
-    let { name, image, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, Temperaments } = res[0].dataValues
+    // Desustructuramos la informacion
+    let { id, name, image, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, Temperaments } = res[0].dataValues
+    // Recorremos el array de temperamentos, para organizarlo igual a como viene en la API
     let dogTemperaments = Temperaments.map(data => data.dataValues.name)
     dogTemperaments = [...dogTemperaments].join()
+    // Retornamos el objeto ya organizado
     return dogObj = {
+        id,
         name, 
         image, 
         heightMin, 
@@ -65,26 +70,78 @@ const getDogsDb = async () => {
 }
 
 //CONCAT INFO API && DATABASE
-const getAllDogs = async() => {
+const getAllDogs = async(name) => {
+    // Obtenemos data desde la API y la DB y la juntamos en un array
     const dogsDb = await getDogsDb();
     const dogsApi = await getDogsApi();
     const getAllDogs = dogsDb.concat(dogsApi);
+    // Verificamos si recibimos un nombre por query
+    let singleDog
+    if(name) {
+        // Filtramos para obtener el perro, si no consigue nada, regresamos un mensaje
+        singleDog = getAllDogs.filter(dog => dog.name.toLowerCase().includes(name.toLowerCase()))
+        if(singleDog.length === 0) return 'No se encontraron perros con ese nombre'
+        return singleDog
+    }
+    // Si no se recibe nombre por query, regresamos el array completo
     return await getAllDogs;
 }
 
 //GET DOG BY ID
 const getDogsById = async (id) =>{
+    // Obtenemos el array con todos los perros
     const dogsInfo = await getAllDogs()
+    // Buscamos por id, si no se encuentra se devuelve un mensaje
     const dogsById = await dogsInfo.find(dog => dog.id == id)
+    if(dogsById.length === 0)  return 'No se encontraron perros con ese ID'
     return dogsById
 }
 
+const createDog = async (name, image, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, temperament) => {
+    // Busca los temperamentos en la DB para obtener su ID
+    let getTemperaments = await Temperament.findAll({
+        where: {name: temperament},
+    })
+    getTemperaments = getTemperaments.map(el => el.id)
+    // Se crea el perro en la DB
+    const [dog, created] = await Dog.findOrCreate({
+        where: {name},
+        defaults: {
+            name,
+            image,
+            heightMin,
+            heightMax,
+            weightMin,
+            weightMax,
+            lifeSpanMin,
+            lifeSpanMax
+        }
+    }) 
+    // Si ya esta creado, se devuelve un mensaje
+    if(!created) {
+        return 'Ya el perro existe...'
+    }
+    // Se hace la relacion del nuevo perro con los ID's obtenidos de los temperamentos
+    await dog.addTemperaments(getTemperaments)
 
+    // Obtenemos el nuevo perro creado, para organizar su informacion (igual a como viene de la API) y retornarlo
+    let newDog 
+    await Dog.findOne({
+        where: {name},
+        include: {
+            model: Temperament,
+            attributes: ['name']
+        }
+    })
+    .then(res => newDog = createDogObjDB([res]))
 
+    return newDog
+}
 
 module.exports = {
     getAllDogs,
     getDogsById,
     getDogsApi,
-    getDogsDb
+    getDogsDb,
+    createDog
 }

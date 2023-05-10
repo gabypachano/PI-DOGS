@@ -33,7 +33,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_DOG_DETAIL:
             return {
                 ...state,
-                dogDetail: action.payload[0]
+                dogDetail: action.payload
             }
 
         case POST_DOG:

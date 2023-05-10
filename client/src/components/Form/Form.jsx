@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTemperaments, postDog } from '../../redux/actions'
 
-
 // Estilos
 // Manejo de errores
 
@@ -68,7 +67,7 @@ const Form = () => {
             className={styles.container}>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label>Nombre </label>
+                        <label>Name </label>
                         <input 
                         type="text"
                         name="name"
@@ -77,7 +76,7 @@ const Form = () => {
                         onChange={handleChange} />
                     </div>
                     <div>
-                        <label>Imagen </label>
+                        <label>Image </label>
                         <input 
                         type="text"
                         name="image"
@@ -86,7 +85,7 @@ const Form = () => {
                         onChange={handleChange} />
                     </div>
                     <div>
-                        <label>Altura minima </label>
+                        <label>Minimum height </label>
                         <input 
                         type="number"
                         name="heightMin"
@@ -95,7 +94,7 @@ const Form = () => {
                         onChange={handleChange} />
                     </div>
                     <div>
-                        <label>Altura maxima </label>
+                        <label>Maximum height </label>
                         <input 
                         type="number"
                         name="heightMax"
@@ -104,7 +103,7 @@ const Form = () => {
                         onChange={handleChange} />
                     </div>
                     <div>
-                        <label>Peso minimo </label>
+                        <label>Minimum weight </label>
                         <input 
                         type="number"
                         name="weightMin"
@@ -113,7 +112,7 @@ const Form = () => {
                         onChange={handleChange} />
                     </div>
                     <div>
-                        <label>Peso maximo </label>
+                        <label>Maximum weight </label>
                         <input 
                         type="number"
                         name="weightMax"
@@ -122,7 +121,7 @@ const Form = () => {
                         onChange={handleChange} />
                     </div>
                     <div>
-                        <label>Expectativa de vida minima</label>
+                        <label>Minimum life span </label>
                         <input 
                         type="number"
                         name="lifeSpanMin"
@@ -131,7 +130,7 @@ const Form = () => {
                         onChange={handleChange} />
                     </div>
                     <div>
-                        <label>Expectativa de vida maxima </label>
+                        <label>Maximum life span </label>
                         <input 
                         type="number"
                         name="lifeSpanMax"
@@ -160,7 +159,7 @@ const Form = () => {
                         <select 
                         name="temperaments" 
                         onChange={handleTempsChange} >
-                            <option>Tipos</option>
+                            <option>Temperaments</option>
                             {
                                 temperaments?.map(type => {
                                     return (
