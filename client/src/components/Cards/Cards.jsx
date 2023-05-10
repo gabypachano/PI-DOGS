@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "../Card/Card";
 import { Link } from "react-router-dom";
+import styles from './styles.module.css'
 
 const Cards = ({dogs}) => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -11,7 +12,7 @@ const Cards = ({dogs}) => {
  
     
     const pageNumber = [];
-    for (let i=0; i <= Math.ceil(dogs/dogsPerPage); i++) {
+    for (let i=1; i <= Math.ceil(dogs.length/dogsPerPage); i++) {
         pageNumber.push(i)
     }
 
@@ -22,43 +23,42 @@ const Cards = ({dogs}) => {
 
     return(
         <>
-        <div>
-            {
-                currentDogs?.map((dog, index) => (
-                    <Card 
-                    key={index}
-                    id={dog.id}
-                    name={dog.name}
-                    image={dog.image}
-                    weightMin={dog.weightMin}
-                    weightMax={dog.weightMax}
-                    heightMin={dog.heightMin}
-                    heightMax={dog.heightMax}
-                    lifeSpanMin={dog.lifeSpanMin}
-                    lifeSpanMax={dog.lifeSpanMax}
-                    temperament={dog.temperament}
-                    />
-                ))
-            }
-        </div>
+            <div
+            className={styles.container} >
+                <div className={styles.divCards}>
+                    {
+                        
+                        currentDogs?.map((dog, index) => (
+                            <Card 
+                            key={index}
+                            id={dog.id}
+                            name={dog.name}
+                            image={dog.image}
+                            weightMin={dog.weightMin}
+                            weightMax={dog.weightMax}
+                            heightMin={dog.heightMin}
+                            heightMax={dog.heightMax}
+                            lifeSpanMin={dog.lifeSpanMin}
+                            lifeSpanMax={dog.lifeSpanMax}
+                            temperament={dog.temperament}
+                            />
+                        ))
+                    }
+                </div>
 
-        <div>
-            {
-                pageNumber?.map((number, index) => {
-                    return(
-                        <button key={index} onClick={() => paginado(number)}>{number}</button>
-                    )
-                })
-            }
-        </div>
+                <div
+                className={styles.paginationButtons} >
+                    {
+                        pageNumber?.map((number, index) => {
+                            return(
+                                <button key={index} onClick={() => paginado(number)}>{number}</button>
+                            )
+                        })
+                    }
+                </div>
+            </div>
         </>
     )
-
-
-
-
-
-
 }
 
 

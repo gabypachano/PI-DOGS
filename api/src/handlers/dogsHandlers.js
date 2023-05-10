@@ -1,6 +1,23 @@
 const {Dog, Temperament} = require('../db')
 const {getAllDogs, getDogsById} = require('../controllers/getAllDogs')
 
+const createDogObjDB = (res) => {
+    let { name, image, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, Temperaments } = res[0].dataValues
+    let dogTemperaments = Temperaments.map(data => data.dataValues.name)
+    dogTemperaments = [...dogTemperaments].join()
+    return dogObj = {
+        name, 
+        image, 
+        heightMin, 
+        heightMax, 
+        weightMin, 
+        weightMax, 
+        lifeSpanMin, 
+        lifeSpanMax, 
+        temperament: dogTemperaments
+    }
+}
+
 const allDogsHandler = async (req, res) =>{
     try{
     const apiInfo = await getAllDogs();
@@ -40,26 +57,42 @@ const dogsByIdHandler = async (req,res) => {
 const createDogsHandler = async (req, res) => {
     const {name, image, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, temperament} = req.body
     try {
-            const dogsCreated = await Dog.create({
-            name,
-            image,
-            heightMin,
-            heightMax,
-            weightMin,
-            weightMax,
-            lifeSpanMin,
-            lifeSpanMax
+
+        let getTemperaments = await Temperament.findAll({
+            where: {name: temperament},
+        })
+        getTemperaments = getTemperaments.map(el => el.id)
+
+        const [dog, created] = await Dog.findOrCreate({
+            where: {name},
+            defaults: {
+                name,
+                image,
+                heightMin,
+                heightMax,
+                weightMin,
+                weightMax,
+                lifeSpanMin,
+                lifeSpanMax
+            }
         }) 
 
-        temperament?.map(async (e) => { 
-            const getTemperament = await Temperament.findOne({where: {name: e}})
-            await dogsCreated.addTemperament(getTemperament)
+        if(!created) {
+            res.status(400).send('Ya el perro existe...')
+            return
+        }
+        await dog.addTemperaments(getTemperaments)
+        let result 
+        await Dog.findOne({
+            where: {name},
+            include: {
+                model: Temperament,
+                attributes: ['name']
+            }
         })
-        
-        res.status(201).send({
-            message: 'El perrito se ha creado correctamente',
-            data: await dogsCreated
-        })
+        .then(res => result = createDogObjDB([res]))
+
+        res.status(200).json(result)
 
     } catch (error) {
       res.status(400).send({message: 'Hubo un error al crear el perrito', error: error.message})  

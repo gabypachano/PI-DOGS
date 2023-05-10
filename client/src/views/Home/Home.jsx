@@ -1,7 +1,9 @@
+import style from './Home.module.css'
 import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllDogs } from '../../redux/actions'
 import Cards from '../../components/Cards/Cards'
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const Home = () => {
     // Para ir enviando mis acciones a redux y actualizar el estado global de la aplicación.
@@ -17,10 +19,10 @@ const Home = () => {
 
     return (
         <>
-        <div>
-            <h1>ESTAMOS EN HOME</h1>
-            <Cards dogs={dogs} />
-        </div>
+            <div
+            className={style.container} >
+                <Cards dogs={dogs}/>
+            </div>
         </>
     )
 

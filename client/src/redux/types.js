@@ -1,2 +1,11 @@
-export const GET_ALLDOGS = "GET_ALLDOGS"
-// export const REMOVE_FAV = "REMOVE_FAV"
+export const GET_ALLDOGS = "GET_ALLDOGS";
+export const GET_ALLTEMPERAMENTS = "GET_ALLTEMPERAMENTS";
+export const GET_DOG_BY_NAME = 'GET_DOG_BY_NAME';
+export const GET_DOG_DETAIL = 'GET_DOG_DETAIL';
+export const ORDER_DESC = 'ORDER_DESC';
+export const GET_BY_API = 'GET_BY_API';
+export const POST_DOG ='POST_DOG';
+export const RESET ='RESET';
+export const GET_BY_DB = 'GET_BY_DB';
+export const WEIGHT_MAX = 'WEIGHT_MAX';
+export const WEIGHT_MIN = 'WEIGHT_MIN';

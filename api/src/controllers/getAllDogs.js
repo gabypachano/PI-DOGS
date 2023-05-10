@@ -2,6 +2,23 @@ const axios = require("axios");
 const {API_KEY} = process.env
 const {Dog, Temperament} = require("../db")
 
+const createDogObjDB = (res) => {
+    let { name, image, heightMin, heightMax, weightMin, weightMax, lifeSpanMin, lifeSpanMax, Temperaments } = res[0].dataValues
+    let dogTemperaments = Temperaments.map(data => data.dataValues.name)
+    dogTemperaments = [...dogTemperaments].join()
+    return dogObj = {
+        name, 
+        image, 
+        heightMin, 
+        heightMax, 
+        weightMin, 
+        weightMax, 
+        lifeSpanMin, 
+        lifeSpanMax, 
+        temperament: dogTemperaments
+    }
+}
+
 
 // En este caso, la forma de armar el back va a ser trayendome todos los datos de la api, el tema de paginado, filtros, ordenamientos lo vamos a manejar cuando estemos desarrollando el front
 
@@ -38,12 +55,13 @@ const getDogsDb = async () => {
         include: {
             model: Temperament,
             attributes: ['name'],
-            through: {
-                attributes: [],
-            }
         }
     })
-
+    .then(responses => {
+        return(
+            responses.map(res => createDogObjDB([res]))
+        )
+    })
 }
 
 //CONCAT INFO API && DATABASE

@@ -5,12 +5,12 @@ import LandingPage from './views/Landing/LandingPage';
 import Home from './views/Home/Home';
 import Detail from './components/Detail/Detail';
 import Form from './components/Form/Form';
-// import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/NavBar/NavBar';
 
 function App() {
   return (
     <div>
-      {/* <NavBar /> */}
+      <NavBar />
       <Switch>
         <Route path='/home'>
           <Home />
