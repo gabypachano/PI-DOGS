@@ -25,10 +25,6 @@ const createDogObjDB = (res) => {
 }
 
 
-// En este caso, la forma de armar el back va a ser trayendome todos los datos de la api, el tema de paginado, filtros, ordenamientos lo vamos a manejar cuando estemos desarrollando el front
-
-
-
 
 //GET API INFO -> //! Esta funcion llama al endpoint de la api y me trae toda la informacion que voy a necesitar 
 const getDogsApi = async () => {
