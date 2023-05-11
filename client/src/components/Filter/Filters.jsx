@@ -1,13 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import styles from './styles.module.css'
-import { useEffect } from 'react'
-import { filterApi, filterDb, getAllDogs, orderAsc, orderDes, orderName, orderWeightMax, orderWeightMin } from '../../redux/actions'
+// import { orderAsc, orderDes, orderWeightMax, orderWeightMin } from '../../redux/actions'
 
 const Filters = () => {
 const dispatch = useDispatch()
-
-
-
 
 
 // const handleOnClick = (e)=>{
@@ -24,15 +20,6 @@ const dispatch = useDispatch()
 //     if(e.target.name === "min") {
 //         dispatch(orderWeightMin(e.target.value))
 //     }
-//     if(e.target.name === "all"){
-//         dispatch(getAllDogs(e.target.value))
-//     }
-//     if(e.target.name === "api") {
-//         dispatch(filterApi(e.target.value))
-//     }    
-//     if(e.target.name === "db") {
-//         dispatch(filterDb(e.target.value))
-//     }
 //   
 
   return (
@@ -48,15 +35,6 @@ const dispatch = useDispatch()
 
     </>
   )
-
-
-
-
-
-
-
-
-
 }
    
 export default Filters

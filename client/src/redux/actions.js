@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FILTER_ALL, FILTER_API, FILTER_DB, FILTER_TEMPERAMENT, GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_ASC, ORDER_DES, ORDER_NAME, ORDER_WEIGHT_MAX, ORDER_WEIGHT_MIN, POST_DOG } from './types'
+import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_ASC, ORDER_DES, ORDER_WEIGHT_MAX, ORDER_WEIGHT_MIN, POST_DOG } from './types'
 
 export const getAllDogs = () => async(dispatch) => {
     let endpoint = 'http://localhost:3001/dogs'
@@ -44,29 +44,6 @@ export const postDog = (form) => {
                 payload: res.data
             })
         })
-    }
-}
-
-export const filterTemperament = (temperament) =>{
-    return {
-        type : FILTER_TEMPERAMENT,
-        payload : temperament
-    }
-}
-
-export const filterApi = () =>{
-    return {
-        type : FILTER_API
-    }
-}
-export const filterDb = () =>{
-    return {
-        type : FILTER_DB
-    }
-}
-export const filterAll = () =>{
-    return {
-        type : FILTER_ALL
     }
 }
 

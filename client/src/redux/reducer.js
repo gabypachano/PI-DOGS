@@ -1,5 +1,5 @@
 import React from 'react';
-import { FILTER_ALL, FILTER_API, FILTER_DB, FILTER_TEMPERAMENT, GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_ASC, ORDER_DES, ORDER_WEIGHT_MAX, ORDER_WEIGHT_MIN, POST_DOG, RESET } from './types';
+import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_ASC, ORDER_DES, ORDER_WEIGHT_MAX, ORDER_WEIGHT_MIN, POST_DOG, RESET } from './types';
 
 const initialState = {
     allDogs : [],
@@ -44,39 +44,7 @@ const rootReducer = (state = initialState, action) => {
                 allDogs: dataArray
             }
 
-        case FILTER_TEMPERAMENT:
-            aux1 = state.allDogs.filter(dog => {
-                if(!dog.temperament) return undefined;
-                return dog.temperament.includes(action.payload)
-            })
-            return{
-                ...state,
-                dogsFilter : aux1
-            }
-        
-        case FILTER_API:
-            aux1 = state.allDogs.filter(dog => /^[0-9,$]*$/.test(dog.id));
-            return{
-                ...state,
-                dogsFilter : aux1
-            }
-        
-        case FILTER_DB:
-            aux1 = state.allDogs.filter(dog => !/^[0-9,$]*$/.test(dog.id))
-            return{
-                ...state,
-                dogsFilter : aux1
-            }   
-        
-        case FILTER_ALL:
-            aux1 = state.allDogs.map(dog => dog)
-            return{
-                state,
-                dogsFilter : aux1
-
-            }
-
-        case ORDER_ASC:
+         case ORDER_ASC:
              aux1 = state.dogsFilter.sort((a,b)=>a.name.localeCompare(b.name))
              return{
                 ...state,
@@ -102,7 +70,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 dogsFilter : aux1
             }
-
+            
         case RESET:
             return{
                 ...state,
