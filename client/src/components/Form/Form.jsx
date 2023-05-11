@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getTemperaments, postDog } from '../../redux/actions'
 
-// Estilos
-// Manejo de errores
-
 const Form = () => {
     const dispatch = useDispatch()
     const temperaments = useSelector(state => state.temperaments)

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_DESC, GET_BY_DB, GET_BY_API, POST_DOG, WEIGHT_MIN, WEIGHT_MAX } from './types'
+import { FILTER_ALL, FILTER_API, FILTER_DB, FILTER_TEMPERAMENT, GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_ASC, ORDER_DES, ORDER_NAME, ORDER_WEIGHT_MAX, ORDER_WEIGHT_MIN, POST_DOG } from './types'
 
 export const getAllDogs = () => async(dispatch) => {
     let endpoint = 'http://localhost:3001/dogs'
@@ -47,32 +47,47 @@ export const postDog = (form) => {
     }
 }
 
-export const orderDesc = () => {
+export const filterTemperament = (temperament) =>{
     return {
-        type: ORDER_DESC
+        type : FILTER_TEMPERAMENT,
+        payload : temperament
     }
 }
 
-export const weightMin = () =>{
+export const filterApi = () =>{
+    return {
+        type : FILTER_API
+    }
+}
+export const filterDb = () =>{
+    return {
+        type : FILTER_DB
+    }
+}
+export const filterAll = () =>{
+    return {
+        type : FILTER_ALL
+    }
+}
+
+export const orderAsc = () =>{
     return{
-        type: WEIGHT_MIN,
+        type : ORDER_ASC
     }
-}
-
-export const weightMax = () =>{
+} 
+export const orderDes = () =>{
     return{
-        type: WEIGHT_MAX,
+        type : ORDER_DES
     }
-}
+} 
 
-export const getByApi = () =>{
-    return {
-        type: GET_BY_API
+export const orderWeightMax = () =>{
+    return{
+        type : ORDER_WEIGHT_MAX
     }
-}
-
-export const getByDb = () =>{
-    return {
-        type: GET_BY_DB
+} 
+export const orderWeightMin = () =>{
+    return{
+        type : ORDER_WEIGHT_MIN
     }
 }

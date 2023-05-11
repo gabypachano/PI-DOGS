@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Card from "../Card/Card";
-import { Link } from "react-router-dom";
 import styles from './styles.module.css'
 
 const Cards = ({dogs}) => {

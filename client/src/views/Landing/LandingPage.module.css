@@ -1,0 +1,9 @@
+.div1{
+    background-image: url("../../assets/perritos.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: space-around;
+    height: 100vh;/*view port height : medidas relativas*/   
+}

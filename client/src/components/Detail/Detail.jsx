@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getDogsDetail } from "../../redux/actions";
 import { useEffect } from "react";
 import axios from 'axios';
 

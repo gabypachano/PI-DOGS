@@ -1,6 +1,5 @@
-import axios from 'axios'
 import React from 'react';
-import { GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_DESC, GET_BY_DB, GET_BY_API, POST_DOG, WEIGHT_MIN, WEIGHT_MAX, RESET } from './types';
+import { FILTER_ALL, FILTER_API, FILTER_DB, FILTER_TEMPERAMENT, GET_ALLDOGS, GET_ALLTEMPERAMENTS, GET_DOG_BY_NAME, GET_DOG_DETAIL, ORDER_ASC, ORDER_DES, ORDER_WEIGHT_MAX, ORDER_WEIGHT_MIN, POST_DOG, RESET } from './types';
 
 const initialState = {
     allDogs : [],
@@ -8,8 +7,10 @@ const initialState = {
     dogsFilter: [],
     dogDetail: {}
 }
-
 const rootReducer = (state = initialState, action) => {
+
+    let aux1 = []
+
     switch(action.type) {
         case GET_ALLDOGS:
             return {
@@ -24,7 +25,6 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case GET_DOG_BY_NAME:
-            console.log('estoy pasando por getdogbyname')
             return {
                 ...state,
                 dogsFilter: action.payload
@@ -44,39 +44,63 @@ const rootReducer = (state = initialState, action) => {
                 allDogs: dataArray
             }
 
-        case ORDER_DESC: 
-            const orderInfo = state.dogsFilter.reverse()
-            return {
-                ...state,
-                dogsFilter: orderInfo
-            }
-
-        case GET_BY_DB:
-            const dbInfo = state.dogsFilter.filter(dog => !/^[0-9,$]*$/.test(dog.id));
+        case FILTER_TEMPERAMENT:
+            aux1 = state.allDogs.filter(dog => {
+                if(!dog.temperament) return undefined;
+                return dog.temperament.includes(action.payload)
+            })
             return{
                 ...state,
-                dogsFilter: dbInfo
+                dogsFilter : aux1
             }
-
-        case GET_BY_API:
-            // Filtra por ID que sea solo numero
-            const apiInfo = state.dogsFilter.filter(dog => /^[0-9,$]*$/.test(dog.id));
+        
+        case FILTER_API:
+            aux1 = state.allDogs.filter(dog => /^[0-9,$]*$/.test(dog.id));
             return{
                 ...state,
-                dogsFilter: apiInfo
+                dogsFilter : aux1
+            }
+        
+        case FILTER_DB:
+            aux1 = state.allDogs.filter(dog => !/^[0-9,$]*$/.test(dog.id))
+            return{
+                ...state,
+                dogsFilter : aux1
+            }   
+        
+        case FILTER_ALL:
+            aux1 = state.allDogs.map(dog => dog)
+            return{
+                state,
+                dogsFilter : aux1
+
             }
 
-        case WEIGHT_MIN:
-            // Ordena de menor a mayor
-            return {
+        case ORDER_ASC:
+             aux1 = state.dogsFilter.sort((a,b)=>a.name.localeCompare(b.name))
+             return{
                 ...state,
-                dogsFilter: state.dogsFilter.sort((a, b) => a.weightMin - b.weightMin)
-            }
+                dogsFilter : aux1
+             }
+        case ORDER_DES:
+            aux1 = state.dogsFilter.sort((a, b) => b.name.localeCompare(a.name))
+            return{
+                ...state,
+                dogsFilter : aux1
+             }
 
-        case WEIGHT_MAX:
-            return {
+        case ORDER_WEIGHT_MIN:
+            aux1 = state.dogsFilter.sort((a,b)=> Number(a.weightMin)-Number(b.weightMin))
+            return{
                 ...state,
-                dogsFilter: state.dogsFilter.sort((a, b) => b.weightMax - a.weightMax)
+                dogsFilter : aux1
+             }
+
+        case ORDER_WEIGHT_MAX:
+            aux1 = state.dogsFilter.sort((a,b)=> Number(b.weightMax) - Number(a.weightMax))
+            return{
+                ...state,
+                dogsFilter : aux1
             }
 
         case RESET:

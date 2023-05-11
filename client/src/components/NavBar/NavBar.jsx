@@ -1,11 +1,15 @@
+import Filters from '../Filter/Filters';
 import SearchBar from '../SearchBar/SearchBar';
 import styles from './styles.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const NavBar = () => {
+    let { pathname } = useLocation()
 
     return(
         <>
+        {
+            pathname !== '/' ? (
             <div
             className={styles.container} >
                 <div>
@@ -19,7 +23,13 @@ const NavBar = () => {
                 <div>
                     <SearchBar />
                 </div>
+                <div>
+                    <Filters />
+                </div>
+
             </div>
+             ) : (null)
+            }
         </>
     )
 }
