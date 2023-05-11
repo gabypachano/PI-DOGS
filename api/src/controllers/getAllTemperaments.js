@@ -8,6 +8,7 @@ const getAllTemperaments = async () =>{
     const apiInfo = await getDogsApi();
     // Separamos cada temperamento
     let allTemp = (apiInfo.map(dog => dog.temperament)).join(', ').split(', ')
+
     // Creamos un array con los temperamentos sin que se repitan
     allTemp.forEach(el => {
         if(!allTemperaments.includes(el)) allTemperaments.push(el)

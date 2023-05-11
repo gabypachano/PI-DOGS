@@ -26,7 +26,7 @@ const createDogObjDB = (res) => {
 
 
 
-//GET API INFO -> //! Esta funcion llama al endpoint de la api y me trae toda la informacion que voy a necesitar 
+//GET API INFO -> // Esta funcion llama al endpoint de la api y me trae toda la informacion que voy a necesitar 
 const getDogsApi = async () => {
     try { 
     const miApi = await axios.get(`https://api.thedogapi.com/v1/breeds?${API_KEY}`)
